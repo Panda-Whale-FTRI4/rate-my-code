@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRouteMatch } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
-
 import Container from '@mui/material/Container';
 import 'react-pro-sidebar/dist/css/styles.css';
 
 import CreatePost from '../components/CreatePost.jsx';
 import Feed from '../components/Feed.jsx';
-import FeedCodeBlock from '../components/FeedCodeBlock.jsx';
-
+import PostView from '../components/PostView.jsx';
 import classes from './MainContainer.module.css';
 import './custom.scss';
 
 export default function MainContainer() {
 
-  const [topic, setTopic] = useState('Java');
-
+  const [topic, setTopic] = useState();
+  const [postToRender, setPostToRender] = useState();
+  
   return (
     <Container className={classes.mainContainer}>
       <ProSidebar className={classes.sidebar}>
@@ -23,38 +22,30 @@ export default function MainContainer() {
           <MenuItem>
             <Link to="/home">Home</Link>
           </MenuItem>
-          <MenuItem>
-            <Link to="/home/feed">Feed</Link>
-          </MenuItem>
-          <MenuItem><Link to="/home/JavaScript">JavaScript</Link></MenuItem>
-          <MenuItem><Link to="/home/Python">Python</Link></MenuItem>
-          <MenuItem><Link to="/home/C#">C#</Link></MenuItem>
-          <MenuItem><Link to="/home/C++">C++</Link></MenuItem>
-          <MenuItem><Link to="/home/Java">Java</Link></MenuItem>
-          <MenuItem><Link to="/home/PHP">PHP</Link></MenuItem>
+  
+          <MenuItem onClick={() => setTopic('Javascript')}><Link to='/home/feed'>JavaScript</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('Python')}><Link to='/home/feed'>Python</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('C#')}><Link to='/home/feed/'>C#</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('C++')}><Link to='/home/feed/'>C++</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('Java')}><Link to='/home/feed/'>Java</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('PHP')}><Link to='/home/feed/'>PHP</Link></MenuItem>
         </Menu>
       </ProSidebar>
-      {/* we may need to import other components below */}
+
       <Switch>
-        <Route path="/home" exact>
-          <h1>Welcome to Rate-My-Code</h1>
-        </Route>
         <Route path="/home/createpost">
           <CreatePost />
         </Route>
-        <Route path="/home/feed">
-          <Feed topic={topic} />
-          {/* <FeedCodeBlock /> */}
+        <Route path='/home/feed'>
+          <Feed topic={topic} setPostToRender={setPostToRender} />
         </Route>
+
+        <Route path='/home/postview'>
+          <PostView postToRender={postToRender} />
+        </Route>
+
       </Switch>
-      {/* <main className={classes.codeBlockContainer}>
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-      </main> */}
+
       <div>
         <Link to="/home/createpost">
           <svg
@@ -75,3 +66,4 @@ export default function MainContainer() {
 }
 
 //@import '~react-pro-sidebar/dist/scss/styles.scss'; for styles.scss
+
