@@ -16,7 +16,7 @@ loginController.getUser = (req, res, next) => {
     params: [username]
   };
 
-  // Query our DB o find username store result in res.locals.user
+  // Query our DB to find username store result in res.locals.user
   db.query(query.text, query.params, (err, dbResponse) => {
     if(err) {
       next({
