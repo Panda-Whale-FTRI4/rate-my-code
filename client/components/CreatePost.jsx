@@ -77,7 +77,12 @@ export default function CreatePost() {
       <form>
         <div>
           <h4> <label htmlFor="title">Title </label> </h4>
-          <input type="text" required id="title" ref={titleInputRef}></input>
+          <input 
+            type="text" 
+            required 
+            id="title" 
+            ref={titleInputRef}>
+          </input>
         </div>
         <div>
           <h4> <label htmlFor="topic">Topic </label> </h4>
@@ -86,11 +91,20 @@ export default function CreatePost() {
         </div>
         <div>
           <h4> <label htmlFor="issue">Issue </label> </h4>
-          <input type="text" required id="issue" ref={issueInputRef}></input>
+          <input 
+            type="text" 
+            required 
+            id="issue" 
+            ref={issueInputRef}></input>
         </div>
         <div>
           <h4> <label htmlFor="code">Code </label> </h4>
-          <input type="text" required id="code" ref={codeInputRef} ></input>
+          <input 
+            type="text" 
+            required 
+            id="code" 
+            ref={codeInputRef}>
+          </input>
         </div>
         <div>
           <Button variant="contained" onClick={submitCode}> 
