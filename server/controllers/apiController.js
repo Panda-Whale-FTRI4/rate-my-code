@@ -3,8 +3,9 @@ const db = require('../models/models');
 
 const apiController = {};
 
+//query to filter posts by topic (checked)
 apiController.getTopic = (req, res, next) => {
-  const topic = req.params.topic; 
+  const topic = req.params.topic;
 
   const query = {
     text: `
@@ -24,22 +25,24 @@ apiController.getTopic = (req, res, next) => {
     }
 
     res.locals.topic = dbResponse.rows;
+    //console.log('Local Topic:', res.locals.topic)
     return next();
   });
 };
 
+//query to get post by post_id -- front end is looking for an object with key/value pairs of the posts and comments
 apiController.getPost = (req, res, next) => {
-  const id = req.params.post; 
-
+  const id = req.params.id;
+  console.log('params: ', req.params.id);
   const query = {
     text: `
       SELECT *
       FROM posts
-      WHERE id = $1;
+      WHERE _id = $1;
     `,
     params: [id]
   };
-  
+
   db.query(query.text, query.params, (err, dbResponse) => {
     if(err) {
       next({
@@ -47,19 +50,20 @@ apiController.getPost = (req, res, next) => {
         message: { err: err.message }
       });
     }
-
+    console.log('Rows: ', dbResponse.rows[0]);
     res.locals.post.postContent = dbResponse.rows[0];
     return next();
   });
 };
 
+//query to get comments by post_id (foreign key)
 apiController.getComments = (req, res, next) => {
   const id = req.body.post;
 
   // get comments from comments table using foreign key of correct post
   const query = {
     text: `
-      SELECT c.* 
+      SELECT c.*
       FROM comments c
       LEFT JOIN posts p
       ON c.post_id = p.$1;
@@ -96,44 +100,40 @@ apiController.getComments = (req, res, next) => {
     };
 */
 apiController.createPost = (req, res, next) => {
-  console.log('About to create a post'); 
+  console.log('About to create a post');
   const user_id = req.cookies.userID;
-  const { 
+  const {
     topic,
-    // date,
+    date,
     upvotes,
     downvotes,
     title,
     issue,
-    tried,
-    cause,
     code
+    //user_id (used for testing in backend)
   } = req.body;
 
   const query = {
     text: `
       INSERT INTO posts (
         topic,
+        date,
         upvotes,
         downvotes,
         title,
         issue,
-        tried,
-        cause,
         code,
         user_id
       )
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
     `,
     params: [
       topic,
-      // date,
+      date,
       upvotes,
       downvotes,
       title,
       issue,
-      tried,
-      cause,
       code,
       user_id
     ]
@@ -152,8 +152,8 @@ apiController.createPost = (req, res, next) => {
 };
 
 apiController.editPost = (req, res, next) => {
-    
-  const { 
+
+  const {
     _id,
     topic,
     date,
@@ -161,24 +161,21 @@ apiController.editPost = (req, res, next) => {
     downvotes,
     title,
     issue,
-    tried,
-    cause,
     code
-  } = req.body.editPost;
+  } = req.body.editedPost;
+  console.log('Incoming Request Body: ', req.body)
 
   const query = {
     text: `
       UPDATE posts
-      SET 
+      SET
         topic = $2,
         date = $3,
         upvotes = $4,
         downvotes = $5,
         title = $6,
         issue = $7,
-        tried = $8,
-        cause = $9,
-        code = $10,
+        code = $8
       WHERE _id = $1;
     `,
     params: [
@@ -189,12 +186,10 @@ apiController.editPost = (req, res, next) => {
       downvotes,
       title,
       issue,
-      tried,
-      cause,
       code
     ]
   };
-  
+
   db.query(query.text, query.params, (err, dbResponse) => {
     if(err) {
       next({
@@ -202,16 +197,16 @@ apiController.editPost = (req, res, next) => {
         message: { err: err.message }
       });
     }
-
-    res.locals.editedPost = dbResponse.rows[0];
+    console.log('Made it here!')
+  //  res.locals.editedPost = dbResponse.rows[0];
     return next();
   });
 };
 
 apiController.createComment = (req, res, next) => {
   const user_id = req.headers.cookie;
-  
-  const { 
+
+  const {
     comment,
     code,
     upvotes,
@@ -219,17 +214,17 @@ apiController.createComment = (req, res, next) => {
     date,
     post_id
   } = req.body.createComment;
-  
-  const query = {
+
+  const query = { //DB Edit; Added Date to end of SQL Database, and Query was updated accordingly.
     text: `
       INSERT INTO comments (
         comment,
         code,
         upvotes,
         downvotes,
-        date,
         post_id,
-        user_id
+        user_id,
+        date
       )
       VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING *;
@@ -239,9 +234,9 @@ apiController.createComment = (req, res, next) => {
       code,
       upvotes,
       downvotes,
-      date,
       post_id,
-      user_id
+      user_id,
+      date
     ]
   };
 
