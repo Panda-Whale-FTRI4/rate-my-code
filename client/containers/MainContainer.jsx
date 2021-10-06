@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRouteMatch } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import Container from '@mui/material/Container';
@@ -11,33 +11,22 @@ import './custom.scss';
 
 export default function MainContainer() {
 
-  const [topic, setTopic] = useState('Javascript');
-
-  useEffect(() => {
-    
-  }, []);
+  const [topic, setTopic] = useState('');
   
   return (
     <Container className={classes.mainContainer}>
       <ProSidebar className={classes.sidebar}>
         <Menu iconShape="square">
-          {/* <MenuItem>
+          <MenuItem>
             <Link to="/home">Home</Link>
-          </MenuItem> */}
+          </MenuItem>
   
-          {/* <MenuItem onClick={() => setTopic('Javascript')}><Link to="/home/javascript">JavaScript</Link></MenuItem>
-          <MenuItem onClick={() => setTopic('Python')}><Link to="/home/python">Python</Link></MenuItem>
-          <MenuItem onClick={() => setTopic('C#')}><Link to="/home/c#">C#</Link></MenuItem>
-          <MenuItem onClick={() => setTopic('C++')}><Link to="/home/c++">C++</Link></MenuItem>
-          <MenuItem onClick={() => setTopic('Java')}><Link to="/home/java">Java</Link></MenuItem>
-          <MenuItem onClick={() => setTopic('PHP')}><Link to="/home/php">PHP</Link></MenuItem> */}
-          <MenuItem onClick={() => setTopic('Javascript')}>JavaScript</MenuItem>
-          <MenuItem onClick={() => setTopic('Python')}>Python</MenuItem>
-          <MenuItem onClick={() => setTopic('C#')}>C#</MenuItem>
-          <MenuItem onClick={() => setTopic('C++')}>C++</MenuItem>
-          <MenuItem onClick={() => setTopic('Java')}>Java</MenuItem>
-          <MenuItem onClick={() => setTopic('PHP')}>PHP</MenuItem>
-    
+          <MenuItem onClick={() => setTopic('Javascript')}><Link to='/home/feed'>JavaScript</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('Python')}><Link to='/home/feed'>Python</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('C#')}><Link to='/home/feed/'>C#</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('C++')}><Link to='/home/feed/'>C++</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('Java')}><Link to='/home/feed/'>Java</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('PHP')}><Link to='/home/feed/'>PHP</Link></MenuItem>
         </Menu>
       </ProSidebar>
 
@@ -45,7 +34,8 @@ export default function MainContainer() {
         <Route path="/home/createpost">
           <CreatePost />
         </Route>
-        <Route path="/home">
+        <Route path='/home/feed'>
+          {/* <Feed topic={topic} /> */}
           <Feed topic={topic} />
         </Route>
       </Switch>
