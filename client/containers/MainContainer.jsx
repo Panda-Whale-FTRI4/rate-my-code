@@ -6,14 +6,14 @@ import 'react-pro-sidebar/dist/css/styles.css';
 
 import CreatePost from '../components/CreatePost.jsx';
 import Feed from '../components/Feed.jsx';
+import PostView from '../components/PostView.jsx';
 import classes from './MainContainer.module.css';
 import './custom.scss';
 
 export default function MainContainer() {
 
-  const [topic, setTopic] = useState('');
-  // const [postToRender, setPost] = useState()
-
+  const [topic, setTopic] = useState();
+  const [postToRender, setPostToRender] = useState();
   
   return (
     <Container className={classes.mainContainer}>
@@ -37,13 +37,13 @@ export default function MainContainer() {
           <CreatePost />
         </Route>
         <Route path='/home/feed'>
-          <Feed topic={topic} />
-          {/* <Feed topic={} */}
+          <Feed topic={topic} setPostToRender={setPostToRender} />
         </Route>
-        {/* <Route path='/home/postview'>
-              <PostView postToRender={postToRender} />
-            </Route>
-        */}
+
+        <Route path='/home/postview'>
+          <PostView postToRender={postToRender} />
+        </Route>
+
       </Switch>
 
       <div>

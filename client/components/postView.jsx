@@ -1,7 +1,24 @@
-import React, { useState } from 'react';
-import MainContainer from '../containers/MainContainer.jsx';
-import Post from './Post.jsx';
+import React, { useEffect, useState } from 'react';
 
 export default function PostView (props) {
+  const [post, setPost] = useState();
 
+  useEffect(() => {
+    fetchPost();
+  }, [props.postToRender]);
+
+  const fetchPost = () => {
+    fetch(`api/getPost/${props.postToRender}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setPost(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  return (
+    <div>
+      {post}
+    </div>
+  );
 }

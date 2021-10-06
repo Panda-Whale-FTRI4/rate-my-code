@@ -19,8 +19,7 @@ export default function Feed(props) {
   };
 
   const postsToRetrieve = codeBlocks.map(post => {
-    return <Post key={post._id} code={post.code} />;
-      //<Post key={post._id} code={post.code} onClick()
+    return <Post key={post._id} code={post.code} onClick={() => props.setPostToRender(post._id)} />;
   });
 
   return (
