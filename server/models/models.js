@@ -1,6 +1,8 @@
 const { Pool } = require('pg');
+require('dotenv').config();
 
-const PG_URI = 'postgres://prlevmts:Gp0TQswGk3PCucFr2tU1qGIeG851eGAo@fanny.db.elephantsql.com/prlevmts';
+const PG_URI = 'postgres:tcoracmx:jLjTGxXlr8tpUu-Ipx79pPfkko6lZayD@kashin.db.elephantsql.com/tcoracmx';
+//console.log(PG_URI)
 
 const pool = new Pool({
   connectionString: PG_URI
