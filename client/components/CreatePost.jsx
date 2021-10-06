@@ -34,7 +34,7 @@ export default function CreatePost() {
       issue: enteredIssue,
       tried: enteredTried,
       cause: enteredCause,
-      code: enteredCode,
+      code: enteredCode
     };
 
     // create fetch request to POST the new post

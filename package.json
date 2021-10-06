@@ -1,5 +1,5 @@
 {
-  "name": "pink-fairy-armadillo",
+  "name": "panda-whale",
   "version": "1.0.0",
   "description": "Rate My Code App",
   "main": "server/server.js",
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/adamISheff/pink-fairy-armadillo.git"
   },
-  "author": "Team Fairy Pink Armadillo",
+  "author": "Team Panda Whale",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/adamISheff/pink-fairy-armadillo/issues"

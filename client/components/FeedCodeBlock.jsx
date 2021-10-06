@@ -16,4 +16,4 @@ export default function Feed(props) {
       </Link>
     </section>
   );
-};
+}

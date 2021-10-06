@@ -1,60 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
-
 import Container from '@mui/material/Container';
 import 'react-pro-sidebar/dist/css/styles.css';
 
 import CreatePost from '../components/CreatePost.jsx';
 import Feed from '../components/Feed.jsx';
-import FeedCodeBlock from '../components/FeedCodeBlock.jsx';
-
 import classes from './MainContainer.module.css';
 import './custom.scss';
 
 export default function MainContainer() {
 
-  const [topic, setTopic] = useState('Java');
+  const [topic, setTopic] = useState('Javascript');
 
+  useEffect(() => {
+    
+  }, []);
+  
   return (
     <Container className={classes.mainContainer}>
       <ProSidebar className={classes.sidebar}>
         <Menu iconShape="square">
-          <MenuItem>
+          {/* <MenuItem>
             <Link to="/home">Home</Link>
-          </MenuItem>
-          <MenuItem>
-            <Link to="/home/feed">Feed</Link>
-          </MenuItem>
-          <MenuItem><Link to="/home/JavaScript">JavaScript</Link></MenuItem>
-          <MenuItem><Link to="/home/Python">Python</Link></MenuItem>
-          <MenuItem><Link to="/home/C#">C#</Link></MenuItem>
-          <MenuItem><Link to="/home/C++">C++</Link></MenuItem>
-          <MenuItem><Link to="/home/Java">Java</Link></MenuItem>
-          <MenuItem><Link to="/home/PHP">PHP</Link></MenuItem>
+          </MenuItem> */}
+  
+          {/* <MenuItem onClick={() => setTopic('Javascript')}><Link to="/home/javascript">JavaScript</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('Python')}><Link to="/home/python">Python</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('C#')}><Link to="/home/c#">C#</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('C++')}><Link to="/home/c++">C++</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('Java')}><Link to="/home/java">Java</Link></MenuItem>
+          <MenuItem onClick={() => setTopic('PHP')}><Link to="/home/php">PHP</Link></MenuItem> */}
+          <MenuItem onClick={() => setTopic('Javascript')}>JavaScript</MenuItem>
+          <MenuItem onClick={() => setTopic('Python')}>Python</MenuItem>
+          <MenuItem onClick={() => setTopic('C#')}>C#</MenuItem>
+          <MenuItem onClick={() => setTopic('C++')}>C++</MenuItem>
+          <MenuItem onClick={() => setTopic('Java')}>Java</MenuItem>
+          <MenuItem onClick={() => setTopic('PHP')}>PHP</MenuItem>
+    
         </Menu>
       </ProSidebar>
-      {/* we may need to import other components below */}
+
       <Switch>
-        <Route path="/home" exact>
-          <h1>Welcome to Rate-My-Code</h1>
-        </Route>
         <Route path="/home/createpost">
           <CreatePost />
         </Route>
-        <Route path="/home/feed">
+        <Route path="/home">
           <Feed topic={topic} />
-          {/* <FeedCodeBlock /> */}
         </Route>
       </Switch>
-      {/* <main className={classes.codeBlockContainer}>
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-        <FeedCodeBlock />
-      </main> */}
+
       <div>
         <Link to="/home/createpost">
           <svg
