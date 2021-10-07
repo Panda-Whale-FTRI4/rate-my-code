@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Post from './Post.jsx';
-
+import { Link } from 'react-router-dom';
 export default function Feed(props) {
   
   const [codeBlocks, setCodeBlocks] = useState([]);
@@ -17,11 +17,10 @@ export default function Feed(props) {
       })
       .catch((err) => console.log(err));
   };
-
+  
   const postsToRetrieve = codeBlocks.map(post => {
-    return <Post key={post._id} code={post.code} onClick={() => props.setPostToRender(post._id)} />;
+    return <Post key={post._id} postId={post._id} code={post.code} setPostToRender={props.setPostToRender}/>;
   });
-
   return (
     <div>
       <div>{postsToRetrieve}</div>

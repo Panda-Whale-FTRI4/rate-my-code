@@ -24,7 +24,7 @@ loginController.getUser = (req, res, next) => {
         message: { err: err.message }
       });
     }
-    if(dbResponse.rows[0])  res.locals.user = dbResponse.rows[0];
+    if(dbResponse)  res.locals.user = dbResponse.rows[0];
     return next();
   });
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function PostView (props) {
+  
   const [post, setPost] = useState('this post state is empty');
 
   useEffect(() => {
@@ -8,7 +9,8 @@ export default function PostView (props) {
   }, [props.postToRender]);
 
   const fetchPost = () => {
-    fetch(`api/getPost/${props.postToRender}`)
+    console.log('hitting fetch');
+    fetch(`/api/getPost/${props.postToRender}`)
       .then((res) => res.json())
       .then((data) => {
         setPost(data);
@@ -18,7 +20,10 @@ export default function PostView (props) {
 
   return (
     <div>
-      {post}
+      {console.log(post)}
+      
+      {post.posts?.title}
+      {post.posts?.issue}
     </div>
   );
 }
