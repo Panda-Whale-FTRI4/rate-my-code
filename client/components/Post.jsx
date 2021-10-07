@@ -8,7 +8,8 @@ export default function Post(props) {
     <section>
         {console.log('Posts.jsx: ', props)}
       <Link to={'/home/postview/'}>
-        <div className={classes.codeBlock}>
+        {console.log(props.postId)}
+        <div className={classes.codeBlock} onClick={() => props.setPostToRender(props.postId)}>
           <div>
           {props.title}
           </div>

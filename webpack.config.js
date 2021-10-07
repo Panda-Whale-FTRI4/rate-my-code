@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -39,7 +38,8 @@ module.exports = {
     proxy: {
       // '/api': 'http://localhost:3000/',
       // '/login': 'http://localhost:3000/',
-      '/**': { target: 'http://localhost:3000' },
+      '/**': { target: 'http://localhost:3000'},
+      
     },
   },
   plugins: [new HtmlWebpackPlugin({ template: './client/index.html' })],
