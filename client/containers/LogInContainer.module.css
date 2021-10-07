@@ -3,7 +3,10 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 80vh;
+  height: 95vh;
+  border: solid black 5px;
+  border-radius: 20px;
+  background-color: lightblue;
 }
 
 .insideContainer {
@@ -11,9 +14,11 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border: solid black 1px;
+  border: solid black 2px;
   padding: 3em;
   width: 350px !important;
+  border-radius: 20px;
+  background-color: #adadadc5;
 }
 
 .inputContainer {

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
+import classes from './CreatePost.module.css';
 
 export default function CreatePost() {
   const [submitted, setSubmitted] = useState(false);
@@ -76,39 +77,37 @@ export default function CreatePost() {
 
   // remove MainContainer when we implement React Router
   return (
-    <div>
+    <div className={classes.container}>
       <form>
         <div>
-          <h4> <label htmlFor="title">Title </label> </h4>
+          <h4 className={classes.header}> <label htmlFor="title">Title </label> </h4>
           <input 
             type="text" 
             required 
             id="title" 
-            ref={titleInputRef}>
+            ref={titleInputRef} 
+            className={classes.input}>
           </input>
         </div>
         <div>
-          <h4> <label htmlFor="topic">Topic </label> </h4>
+          <h4 className={classes.header}> <label htmlFor="topic">Topic </label> </h4>
           {topicSelector}
         </div>
         <div>
-          <h4> <label htmlFor="issue">Issue </label> </h4>
+          <h4 className={classes.header}> <label htmlFor="issue">Issue </label> </h4>
           <input 
             type="text" 
             required 
             id="issue" 
-            ref={issueInputRef}></input>
-        </div>
-        <div>
-          <h4> <label htmlFor="code">Code </label> </h4>
-          <input 
-            type="text" 
-            required 
-            id="code" 
-            ref={codeInputRef}>
+            ref={issueInputRef}
+            className={classes.input}>
           </input>
         </div>
         <div>
+          <h4 className={classes.header}> <label htmlFor="code">Code </label> </h4>
+          
+        </div>
+        <div className={classes.button}>
           <Button variant="contained" onClick={submitCode}> 
             Submit
           </Button>
@@ -116,4 +115,11 @@ export default function CreatePost() {
       </form>
     </div>
   );
-}
+} 
+        //  <input 
+        //     type="text" 
+        //     required 
+        //     id="code" 
+        //     ref={codeInputRef}
+        //     className={classes.inputCode}>
+        //   </input>

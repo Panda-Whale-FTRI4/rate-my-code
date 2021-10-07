@@ -1,52 +1,46 @@
 import React, { useEffect, useState } from 'react';
 
 export default function PostView (props) {
+  
+  const [post, setPost] = useState();
+  const [comments, setComments] = useState([]);
 
-  const [post, setPost] = useState('Some text thats apparently essential');
 
   useEffect(() => {
     fetchPost();
-
   }, []);
 
   const fetchPost = () => {
     fetch(`/api/getPost/${props.postToRender}`)
       .then((res) => res.json())
       .then((data) => {
-        setPost(data);
+        setPost(data?.posts);
+        setComments(data?.comments);
       })
       .catch((err) => console.log(err));
-  };
+  };  
 
-  const commentsToRender = [];
 
-  // post?.comments.forEach(comment => {
-  //   commentsToRender.push(
-  //     '<div key={comment._id} id="commentUsername">{comment.username}</div>'
-  //   );
-  // });
-
-  for (let i = 0; i < post?.comments.length; i++) {
-    commentsToRender.push('<div key={comment._id} id="commentUsername">{comment.username}</div>');
-  }
-  // const commentsToRender = post.map(comment => {
-  //   console.log('Comments: ', comment);
-  //   return(
-  //     '<div key={comment._id} id="commentUsername">{comment.username}</div>'
-  //   );
-  // });
+  const commentsDivs = comments.map(comment => {
+    return (
+      <div key={comment._id}>
+        <div>{comment.username}</div>
+        <div>{comment.comment}</div>
+      </div>
+    );
+  });
 
   return (
     <div>
       <div className='postContent'>
         <div id="postTitle">
-          {post.posts?.title}
+          {post?.title}
         </div>
         <div id="postUsername">
-          {post.posts?.username}
+          {post?.username}
         </div>
         <div id="postIssue">
-          {post.posts?.issue}
+          {post?.issue}
         </div>
         <div id="postCode">
           <div id="codepen"></div>
@@ -59,7 +53,7 @@ export default function PostView (props) {
             data-editable>
             <pre data-lang="js">
               <code>
-                {post.posts?.code}
+                {post?.code}
               </code>
             </pre>
           </div>
@@ -68,23 +62,17 @@ export default function PostView (props) {
       </div>
       <div className='postVotes'>
         <div id="postUpvotes">
-          {post.posts?.upvotes}
+          {post?.upvotes}
           <button id="upvoteBtn">+</button>
         </div>
         <div id="postDownvotes">
-          {post.posts?.downvotes}
+          {post?.downvotes}
           <button id="downvoteBtn">-</button>
         </div>
       </div>
 
-      {/* <div className='comments'>
-        {post.comments.map(comment => {
-          return '<div key={comment._id} id="commentUsername">{comment.username}</div>';
-        })}
-      </div> */}
-
       <div className='comments'>
-        {commentsToRender}
+        {commentsDivs}
       </div>
     </div>
   );

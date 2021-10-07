@@ -1,0 +1,23 @@
+.container{
+  text-align: center;
+}
+
+.input{
+  height: 30px;
+  width: 350px;
+}
+
+.inputCode{
+  height: 100px;
+  width: 350px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.header{
+  margin: 15px;
+}
+
+.button{
+  margin:10px;
+}
