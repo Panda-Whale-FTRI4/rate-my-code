@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function PostView (props) {
-  const [post, setPost] = useState();
+  const [post, setPost] = useState('this post state is empty');
 
   useEffect(() => {
     fetchPost();

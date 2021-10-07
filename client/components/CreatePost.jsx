@@ -6,23 +6,22 @@ import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 
 export default function CreatePost() {
-  const [newPost, setNewPost] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const titleInputRef = useRef();
-  const topicInputRef = useRef();
   const issueInputRef = useRef();
   const codeInputRef = useRef();
 
+  let enteredTopic;
+
   function submitCode () {
     const enteredTitle = titleInputRef.current.value;
-    const enteredTopic = topicInputRef.current.value;
     const enteredIssue = issueInputRef.current.value;
     const enteredCode = codeInputRef.current.value;
     
     const createdPost = {
       topic: enteredTopic,
-      date: Date.now(),
+      date: new Date(),
       upvotes: 0,
       downvotes: 0,
       title: enteredTitle,
@@ -40,9 +39,7 @@ export default function CreatePost() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data) {
-          setNewPost(data);
           setSubmitted(true);
         }
       })
@@ -57,10 +54,16 @@ export default function CreatePost() {
     );
   }
 
+  function setEnteredTopic(e) {
+    console.log(e.target.value);
+    enteredTopic = e.target.value;
+  }
+
   // drop down selector for topic
   const topicSelector = (
     <div>
-      <select name="topic-menu" id="topic-menu">
+      <select name="topic-menu" id="topic-menu" onChange={(e) => {setEnteredTopic(e)}} >
+        <option value="">--choose from below--</option>
         <option value="Javascript">Javascript</option>
         <option value="Python">Python</option>
         <option value="C#">C#</option>
@@ -86,7 +89,6 @@ export default function CreatePost() {
         </div>
         <div>
           <h4> <label htmlFor="topic">Topic </label> </h4>
-          {/* <input type="text" required id="topic" ref={topicInputRef}></input> */}
           {topicSelector}
         </div>
         <div>
