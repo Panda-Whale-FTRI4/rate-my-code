@@ -60,7 +60,7 @@ apiController.getPost = (req, res, next) => {
 //Make sure to test with userId w/ frontend team
 apiController.createPost = (req, res, next) => {
   console.log('About to create a post');
-  //const user_id = req.cookies.userID;
+  const user_id = req.cookies.userID;
   const {
     topic,
     date,
@@ -68,8 +68,8 @@ apiController.createPost = (req, res, next) => {
     downvotes,
     title,
     issue,
-    code,
-    user_id, //(used for testing in backend)
+    code
+    // user_id, //(used for testing in backend)
   } = req.body;
 
   const query = {
