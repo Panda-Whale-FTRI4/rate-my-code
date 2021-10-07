@@ -63,14 +63,18 @@ apiController.getTopic = (req, res, next) => {
 apiController.getPost = (req, res, next) => {
   const id = req.params.id;
   //console.log('params: ', req.params.id);
+
   const query = {
     text: `
-      SELECT *
-      FROM posts
-      WHERE _id = $1;
+      SELECT u.username, p.*
+      FROM posts AS p
+      FULL OUTER JOIN users AS u
+      ON u._id = p.user_id
+      WHERE p._id = $1;
     `,
     params: [id],
   };
+
   db.query(query.text, query.params, (err, dbResponse) => {
     if (err) {
       next({
@@ -78,7 +82,6 @@ apiController.getPost = (req, res, next) => {
         message: { err: err.message },
       });
     }
-    //console.log('Rows: ', dbResponse.rows[0]);
     res.locals.posts = dbResponse.rows[0];
     return next();
   });
@@ -213,10 +216,12 @@ apiController.getComments = (req, res, next) => {
   // get comments from comments table using foreign key of correct post
   const query = {
     text: `
-      SELECT c.*
+      SELECT u.username, c.*
       FROM comments c
-      LEFT JOIN posts p
+      FULL OUTER JOIN posts p
       ON c.post_id = p._id
+      FULL OUTER JOIN users u
+      ON u._id = c.user_id
       WHERE p._id = $1;
     `,
     params: [id],
@@ -229,7 +234,7 @@ apiController.getComments = (req, res, next) => {
         message: { err: err.message },
       });
     }
-    // console.log('Response Body: ', dbResponse.rows);
+    console.log('Rows: ', dbResponse.rows);
     res.locals.comments = dbResponse.rows;
     return next();
   });
