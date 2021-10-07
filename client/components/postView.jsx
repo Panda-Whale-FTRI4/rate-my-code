@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function PostView (props) {
-  
+
   const [post, setPost] = useState('this post state is empty');
 
   useEffect(() => {
@@ -19,11 +19,13 @@ export default function PostView (props) {
   };
 
   return (
-    <div>
-      {console.log(post)}
-      
+    <div className=''>
       {post.posts?.title}
       {post.posts?.issue}
+    </div>
+
+    <div>
+
     </div>
   );
 }
