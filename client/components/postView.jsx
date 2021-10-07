@@ -43,7 +43,7 @@ export default function PostView (props) {
         <div className={classes.downvotes}>Downvotes: {post?.upvotes}</div>
       </div>
       <div className={classes.comments}> 
-        <h3 className={classes.commentTitle}>Comments</h3>
+        <h3 >Comments</h3>
         <div>Comment1</div>
         <div>Comment2</div>
       </div>
