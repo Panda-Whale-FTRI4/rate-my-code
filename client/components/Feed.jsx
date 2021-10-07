@@ -18,9 +18,18 @@ export default function Feed(props) {
       })
       .catch((err) => console.log(err));
   };
-  
+
   const postsToRetrieve = codeBlocks.map(post => {
-    return <Post key={post._id} postId={post._id} code={post.code} setPostToRender={props.setPostToRender} title={post.title} username={post.username} date={post.date} issue={post.issue}/>;
+    return <Post 
+      key={post._id} 
+      postId={post._id} 
+      code={post.code} 
+      setPostToRender={props.setPostToRender} 
+      title={post.title} 
+      username={post.username} 
+      date={post.date} 
+      issue={post.issue}
+    />;
   });
   return (
     <div className={classes.postContainer}>
