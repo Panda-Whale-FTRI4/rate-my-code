@@ -17,12 +17,13 @@ export default function MainContainer() {
   
   return (
     <Container className={classes.mainContainer}>
+      <div className={classes.random}></div>
       <ProSidebar className={classes.sidebar}>
         <Menu iconShape="square">
+          <h2 className={classes.header}>Choose A Topic Below</h2>
           <MenuItem>
             <Link to="/home">Home</Link>
           </MenuItem>
-  
           <MenuItem onClick={() => setTopic('Javascript')}><Link to='/home/feed'>JavaScript</Link></MenuItem>
           <MenuItem onClick={() => setTopic('Python')}><Link to='/home/feed'>Python</Link></MenuItem>
           <MenuItem onClick={() => setTopic('C#')}><Link to='/home/feed/'>C#</Link></MenuItem>
@@ -31,20 +32,22 @@ export default function MainContainer() {
           <MenuItem onClick={() => setTopic('PHP')}><Link to='/home/feed/'>PHP</Link></MenuItem>
         </Menu>
       </ProSidebar>
+      <div className={classes.feedContainer}>
+        <Switch>
+          <Route path="/home/createpost">
+            <CreatePost />
+          </Route>
+          <Route path='/home/feed'>
+            <Feed topic={topic} setPostToRender={setPostToRender} />
+          </Route>
 
-      <Switch>
-        <Route path="/home/createpost">
-          <CreatePost />
-        </Route>
-        <Route path='/home/feed'>
-          <Feed topic={topic} setPostToRender={setPostToRender} />
-        </Route>
+          <Route path='/home/postview'>
+            <PostView postToRender={postToRender} />
+          </Route>
 
-        <Route path='/home/postview'>
-          <PostView postToRender={postToRender} />
-        </Route>
-
-      </Switch>
+        </Switch>
+      </div>
+      
 
       <div>
         <Link to="/home/createpost">

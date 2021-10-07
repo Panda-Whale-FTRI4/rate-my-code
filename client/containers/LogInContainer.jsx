@@ -77,16 +77,18 @@ export default function LogInContainer() {
       />
     );
   }
+//Stretch feature to possibly add a guest link to home page. If user wants to make a post, redirect to sign up
+      //  <header>
+      //     TEMP NAV BAR: <br />
+      //     <Link to="/home">Home</Link>
+      //   </header>
 
   return (
     <Container className={classes.mainContainer}>
+      <h1>Rate-My-Code</h1>   
       <Container className={classes.insideContainer}>
         {/* temp bar to delete after development */}
-        <header>
-          TEMP NAV BAR: <br />
-          <Link to="/home">Home</Link>
-        </header>
-        <h1>Rate-My-Code</h1>
+        <h2>Login Page</h2>
         <form>
           <div className={classes.inputContainer}>
             <label htmlFor="username">Username </label>
