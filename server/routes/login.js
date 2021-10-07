@@ -7,6 +7,16 @@ const loginController = require('../controllers/loginController');
 // Initializer our router
 const router = express.Router();
 
+
+//Special case for posts to grab usernames
+//Created by Elijah and Parker
+router.get('/getTopic/:topic', loginController.getUser, (req, res) => {
+  if (!res.locals.user) {
+    res.status(200).json({ message: 'No user was found' });
+  }
+  res.status(200).json(res.locals.user);
+});
+
 /* Handle routes to the /login route */
 
 // Handle request to /createUser to create a new user

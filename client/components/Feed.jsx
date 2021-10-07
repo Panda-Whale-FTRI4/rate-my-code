@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Post from './Post.jsx';
 
 export default function Feed(props) {
-  
+
   const [codeBlocks, setCodeBlocks] = useState([]);
 
   useEffect(() => {
@@ -19,7 +19,8 @@ export default function Feed(props) {
   };
 
   const postsToRetrieve = codeBlocks.map(post => {
-    return <Post key={post._id} code={post.code} onClick={() => props.setPostToRender(post._id)} />;
+    console.log('Username: ', post.username);
+    return <Post key={post._id} username={post.username} title={post.title} onClick={() => props.setPostToRender(post._id)} />;
   });
 
   return (
