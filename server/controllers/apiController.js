@@ -3,15 +3,43 @@ const db = require('../models/models');
 
 const apiController = {};
 
+//created by elijah and parker
+apiController.getUsername = (req, res, next) => {
+  const id = req.params.id;
+  // Construct a DB query for username
+  const query = {
+    text: `
+    SELECT *
+    FROM users
+    WHERE _id = $1;
+    `,
+    params: [id]
+  };
+
+  // Query our DB to find username store result in res.locals.user
+  db.query(query.text, query.params, (err, dbResponse) => {
+    if(err) {
+      next({
+        log: 'ERROR: apiController.getUsername',
+        message: { err: err.message }
+      });
+    }
+    res.locals.user = dbResponse.rows[0].username;
+    return next();
+  });
+};
+
 //query to filter posts by topic (checked)
 apiController.getTopic = (req, res, next) => {
   const topic = req.params.topic;
 
   const query = {
     text: `
-      SELECT *
-      FROM posts
-      WHERE topic = $1;
+    SELECT u.username, p.*
+    FROM posts AS p
+    FULL OUTER JOIN users AS u
+    ON p.user_id = u._id
+    WHERE p.topic = $1;
     `,
     params: [topic],
   };
@@ -25,7 +53,7 @@ apiController.getTopic = (req, res, next) => {
     }
 
     res.locals.topic = dbResponse.rows;
-    //console.log('Local Topic:', res.locals.topic)
+    console.log('Local Topic:', res.locals.topic)
     return next();
   });
 };
@@ -76,7 +104,7 @@ apiController.createPost = (req, res, next) => {
     text: `
       INSERT INTO posts (
         topic,
-        date, 
+        date,
         upvotes,
         downvotes,
         title,
@@ -253,10 +281,10 @@ apiController.editComment = (req, res, next) => {
     text: `
       UPDATE comments
       SET
-        comment = $2, 
-        code = $3, 
-        upvotes = $4, 
-        downvotes = $5, 
+        comment = $2,
+        code = $3,
+        upvotes = $4,
+        downvotes = $5,
         date = $6
       WHERE _id = $1;
     `,
@@ -280,7 +308,7 @@ apiController.deleteComment = (req, res, next) => {
   const id = req.params.commentId;
   const query = {
     text: `
-      DELETE FROM comments 
+      DELETE FROM comments
       WHERE _id = $1;
     `,
     params: [id],

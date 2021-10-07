@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Post from './Post.jsx';
 import { Link } from 'react-router-dom';
 export default function Feed(props) {
-  
+
   const [codeBlocks, setCodeBlocks] = useState([]);
 
   useEffect(() => {

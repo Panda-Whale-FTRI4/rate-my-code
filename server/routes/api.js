@@ -7,6 +7,17 @@ const router = express.Router();
 
 /* Handle routes to the /api route */
 
+
+//Special case for posts to grab usernames
+//Created by Elijah and Parker
+router.get('/getUser/:id', apiController.getUsername, (req, res) => {
+  if (!res.locals.user) {
+    res.status(500).json({ message: 'No user was found' });
+  }
+  res.status(200).json(res.locals.user);
+});
+
+
 // Handle POST request to /getTopic
 // Receive a topicID the req.body
 // Use getTopic to retrieve the requested topicID and store in res.locals.topic
