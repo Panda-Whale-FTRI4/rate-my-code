@@ -105,7 +105,13 @@ export default function CreatePost() {
         </div>
         <div>
           <h4 className={classes.header}> <label htmlFor="code">Code </label> </h4>
-          
+          <input 
+            type="text" 
+            required 
+            id="code" 
+            ref={codeInputRef}
+            className={classes.inputCode}>
+          </input>
         </div>
         <div className={classes.button}>
           <Button variant="contained" onClick={submitCode}> 
@@ -115,11 +121,4 @@ export default function CreatePost() {
       </form>
     </div>
   );
-} 
-        //  <input 
-        //     type="text" 
-        //     required 
-        //     id="code" 
-        //     ref={codeInputRef}
-        //     className={classes.inputCode}>
-        //   </input>
+}

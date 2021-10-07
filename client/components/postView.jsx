@@ -1,4 +1,6 @@
+import { ClassNames } from '@emotion/react';
 import React, { useEffect, useState } from 'react';
+import classes from './PostView.module.css';
 
 export default function PostView (props) {
   
@@ -8,9 +10,10 @@ export default function PostView (props) {
 
   useEffect(() => {
     fetchPost();
-  }, []);
+  }, [props.postToRender]);
 
   const fetchPost = () => {
+    console.log('hitting fetch');
     fetch(`/api/getPost/${props.postToRender}`)
       .then((res) => res.json())
       .then((data) => {
@@ -18,7 +21,7 @@ export default function PostView (props) {
         setComments(data?.comments);
       })
       .catch((err) => console.log(err));
-  };  
+  };
 
 
   const commentsDivs = comments.map(comment => {
@@ -31,49 +34,34 @@ export default function PostView (props) {
   });
 
   return (
-    <div>
-      <div className='postContent'>
-        <div id="postTitle">
-          {post?.title}
-        </div>
-        <div id="postUsername">
-          {post?.username}
-        </div>
-        <div id="postIssue">
+    
+    <div className={classes.container}>
+      <div className={classes.post}>
+        <h2 className={classes.title}>{post?.title}</h2>
+        <div className={classes.issue}>
+          <h3>Issue:  </h3>
           {post?.issue}
         </div>
-        <div id="postCode">
-          <div id="codepen"></div>
-          <h3>Codepen Below</h3>
-          <div
-            className="codepen"
-            data-prefill
-            data-height="400"
-            data-default-tab="html,result"
-            data-editable>
-            <pre data-lang="js">
-              <code>
-                {post?.code}
-              </code>
-            </pre>
-          </div>
-          <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+        <div className={classes.code}>
+          <h3>Code:  </h3> 
+          {post?.code}
         </div>
+        <div>{post?.username}</div>
       </div>
-      <div className='postVotes'>
-        <div id="postUpvotes">
-          {post?.upvotes}
-          <button id="upvoteBtn">+</button>
-        </div>
-        <div id="postDownvotes">
-          {post?.downvotes}
-          <button id="downvoteBtn">-</button>
-        </div>
+      <div className={classes.votes}>
+        <div className={classes.upvotes}>Upvotes: {post?.downvotes}</div>
+        <div className={classes.downvotes}>Downvotes: {post?.upvotes}</div>
       </div>
-
+      <div className={classes.comments}> 
+        <h3 >Comments</h3>
+        <div>Comment1</div>
+        <div>Comment2</div>
+      </div>
+      
       <div className='comments'>
         {commentsDivs}
       </div>
+      
     </div>
   );
 }
