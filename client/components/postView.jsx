@@ -23,6 +23,16 @@ export default function PostView (props) {
       .catch((err) => console.log(err));
   };
 
+
+  const commentsDivs = comments.map(comment => {
+    return (
+      <div key={comment._id}>
+        <div>{comment.username}</div>
+        <div>{comment.comment}</div>
+      </div>
+    );
+  });
+
   return (
     
     <div className={classes.container}>
@@ -46,6 +56,10 @@ export default function PostView (props) {
         <h3 >Comments</h3>
         <div>Comment1</div>
         <div>Comment2</div>
+      </div>
+      
+      <div className='comments'>
+        {commentsDivs}
       </div>
       
     </div>
