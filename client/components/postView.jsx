@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 
 export default function PostView (props) {
   
-  const [post, setPost] = useState('this post state is empty');
+  const [post, setPost] = useState();
+  const [comments, setComments] = useState([]);
+
 
   useEffect(() => {
     fetchPost();
@@ -13,17 +15,23 @@ export default function PostView (props) {
     fetch(`/api/getPost/${props.postToRender}`)
       .then((res) => res.json())
       .then((data) => {
-        setPost(data);
+        setPost(data?.post);
+        setComments(data?.comments);
       })
       .catch((err) => console.log(err));
   };
+  const array = ['hello', 'how are you']  ;
+  
 
   return (
     <div>
-      {console.log(post)}
+      {console.log(comments[0])}
+      {console.log(array)}
+
       
-      {post.posts?.title}
-      {post.posts?.issue}
+      {/* <div>{post?.title}</div>
+      <div>{post?.issue}</div> */}
+      <div>{comments}</div>
     </div>
   );
 }

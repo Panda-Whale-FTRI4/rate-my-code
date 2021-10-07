@@ -5,17 +5,23 @@ import classes from './Post.module.css';
 
 export default function Post(props) {
   return (
-    <section>
-        {console.log('Posts.jsx: ', props)}
+    <section className={classes.postSection}>
       <Link to={'/home/postview/'}>
-        {console.log(props.postId)}
         <div className={classes.codeBlock} onClick={() => props.setPostToRender(props.postId)}>
-          <div>
-          {props.title}
+          <div className={classes.header}>
+            <h3 className={classes.title}>
+              {props.title}
+            </h3>
+          </div> 
+          <div className={classes.username}>
+            User: {props.username}
           </div>
-          <div>
-          {props.username}
+          <div className={classes.date}>
+          Date Posted: {props.date}
           </div>
+          <p className={classes.issue}>
+            {props.issue}
+          </p>
         </div>
       </Link>
     </section>
