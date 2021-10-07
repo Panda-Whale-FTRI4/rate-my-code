@@ -1,29 +1,30 @@
-import React, { useState } from 'react';
-// import ReactDOM from 'react-dom';
-import MainContainer from '../containers/MainContainer.jsx';
-import FeedCodeBlock from './FeedCodeBlock.jsx';
+import React, { useEffect, useState } from 'react';
+import Post from './Post.jsx';
 
 export default function Feed(props) {
-  // React hooks for state - store the data from the database
+  
   const [codeBlocks, setCodeBlocks] = useState([]);
 
-  // update state that we fetch
-  fetch(`/api/getTopic/${props.topic}`)
-    .then((res) => res.json())
-    .then((data) => {
-      setCodeBlocks(data);
-    })
-    .catch((err) => console.log(err));
+  useEffect(() => {
+    fetchPosts();
+  }, [props.topic]);
 
-  // create codeblock components and save them in an array
-  const codeBlockEl = codeBlocks.map(post => {
-    return <FeedCodeBlock key={post._id} code={post.code} />;
+  const fetchPosts = () => {
+    fetch(`/api/getTopic/${props.topic}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCodeBlocks(data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const postsToRetrieve = codeBlocks.map(post => {
+    return <Post key={post._id} code={post.code} onClick={() => props.setPostToRender(post._id)} />;
   });
 
-  // returns code block cards
   return (
     <div>
-      <div>{codeBlockEl}</div>
+      <div>{postsToRetrieve}</div>
     </div>
   );
 }

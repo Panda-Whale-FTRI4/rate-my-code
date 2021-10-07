@@ -1,4 +1,6 @@
+//CHECKED Anne/Parker
 // Require Packages
+
 const express = require('express');
 const loginController = require('../controllers/loginController');
 
@@ -25,8 +27,9 @@ router.post('/createUser',
     if (!res.locals.user) {
       res.status(400).json({ message: 'Could not create user' });
     }
-    res.status(200).json({userID: res.locals.user._id});
-  });
+    res.status(200).json({ userID: res.locals.user._id });
+  }
+);
 
 // Handle request to / for loging in a user
 /*
@@ -44,8 +47,9 @@ router.post('/',
     if (!res.locals.user) {
       res.status(400).json({ message: 'Could not verify login credentials' });
     }
-    res.status(200).json({userID: res.locals.user._id});
-  });
+    res.status(200).json({ userID: res.locals.user._id });
+  }
+);
 
 // export as router
 module.exports = router;
