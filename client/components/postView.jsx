@@ -26,8 +26,9 @@ export default function PostView (props) {
 
   const commentsDivs = comments.map(comment => {
     return (
-      <div key={comment._id}>
-        <div>{comment.username}</div>
+      <div key={comment._id} className={classes.comment}>
+        <div> Made By:{comment.username}</div>
+        <div> Posted By: {comment.date} </div>
         <div>{comment.comment}</div>
       </div>
     );
@@ -46,22 +47,16 @@ export default function PostView (props) {
           <h3>Code:  </h3> 
           {post?.code}
         </div>
-        <div>{post?.username}</div>
+        
       </div>
       <div className={classes.votes}>
         <div className={classes.upvotes}>Upvotes: {post?.downvotes}</div>
         <div className={classes.downvotes}>Downvotes: {post?.upvotes}</div>
       </div>
-      <div className={classes.comments}> 
+      <div className={classes.commentContainer}> 
         <h3 >Comments</h3>
-        <div>Comment1</div>
-        <div>Comment2</div>
-      </div>
-      
-      <div className='comments'>
         {commentsDivs}
       </div>
-      
     </div>
   );
 }
